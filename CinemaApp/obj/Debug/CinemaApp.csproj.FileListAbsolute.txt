@@ -1,0 +1,16 @@
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\CinemaApp.exe.config
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\CinemaApp.exe
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\CinemaApp.pdb
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.csprojResolveAssemblyReference.cache
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.Form1.resources
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.Properties.Resources.resources
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.csproj.GenerateResource.Cache
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.csproj.CoreCompileInputs.cache
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.exe
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.pdb
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\EntityFramework.dll
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\EntityFramework.xml
+c:\users\p206\source\repos\CinemaApp\CinemaApp\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\p206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.Form2.resources
+C:\Users\P206\source\repos\CinemaApp\CinemaApp\obj\Debug\CinemaApp.Form3.resources
