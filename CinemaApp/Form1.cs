@@ -13,7 +13,7 @@ namespace CinemaApp
 {
     public partial class Form1 : Form
     {
-        private CinemaAppEntities dp = new CinemaAppEntities();
+        private CinemaAppEntities1 dp = new CinemaAppEntities1();
 
         public static int HallIdTaker;
 

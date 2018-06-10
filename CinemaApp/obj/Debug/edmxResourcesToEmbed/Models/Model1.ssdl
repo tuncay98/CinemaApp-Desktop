@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CinemaAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CountriesFilms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryId" Type="int" />
+    <Property Name="FilmId" Type="int" />
+  </EntityType>
+  <EntityType Name="Films">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="Year" Type="int" />
+    <Property Name="About" Type="ntext" />
+  </EntityType>
+  <EntityType Name="FilmsGenres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FilmId" Type="int" />
+    <Property Name="GenreId" Type="int" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Halls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PosterId" Type="int" />
+    <Property Name="Date" Type="date" />
+    <Property Name="ActionDate" Type="datetime" />
+    <Property Name="Price" Type="money" />
+    <Property Name="SeatId" Type="int" />
+    <Property Name="Column" Type="int" />
+  </EntityType>
+  <EntityType Name="Posters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FilmId" Type="int" />
+    <Property Name="HallId" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Time" Type="time" Precision="7" />
+    <Property Name="PrimaryDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Seats">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HallId" Type="int" />
+    <Property Name="Row" Type="nvarchar" MaxLength="10" />
+    <Property Name="Columns" Type="int" />
+  </EntityType>
+  <Association Name="FK_CountriesFilms_Countries">
+    <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+    <End Role="CountriesFilms" Type="Self.CountriesFilms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Countries">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CountriesFilms">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CountriesFilms_Films">
+    <End Role="Films" Type="Self.Films" Multiplicity="0..1" />
+    <End Role="CountriesFilms" Type="Self.CountriesFilms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Films">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CountriesFilms">
+        <PropertyRef Name="FilmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmsGenres_Films">
+    <End Role="Films" Type="Self.Films" Multiplicity="0..1" />
+    <End Role="FilmsGenres" Type="Self.FilmsGenres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Films">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmsGenres">
+        <PropertyRef Name="FilmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilmsGenres_Genres">
+    <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+    <End Role="FilmsGenres" Type="Self.FilmsGenres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilmsGenres">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Posters">
+    <End Role="Posters" Type="Self.Posters" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Posters">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PosterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Seats">
+    <End Role="Seats" Type="Self.Seats" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seats">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="SeatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posters_Films">
+    <End Role="Films" Type="Self.Films" Multiplicity="0..1" />
+    <End Role="Posters" Type="Self.Posters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Films">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posters">
+        <PropertyRef Name="FilmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posters_Halls">
+    <End Role="Halls" Type="Self.Halls" Multiplicity="0..1" />
+    <End Role="Posters" Type="Self.Posters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Halls">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posters">
+        <PropertyRef Name="HallId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_Halls">
+    <End Role="Halls" Type="Self.Halls" Multiplicity="0..1" />
+    <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Halls">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seats">
+        <PropertyRef Name="HallId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CinemaAppModelStoreContainer">
+    <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountriesFilms" EntityType="Self.CountriesFilms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Films" EntityType="Self.Films" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FilmsGenres" EntityType="Self.FilmsGenres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Halls" EntityType="Self.Halls" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Posters" EntityType="Self.Posters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CountriesFilms_Countries" Association="Self.FK_CountriesFilms_Countries">
+      <End Role="Countries" EntitySet="Countries" />
+      <End Role="CountriesFilms" EntitySet="CountriesFilms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CountriesFilms_Films" Association="Self.FK_CountriesFilms_Films">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="CountriesFilms" EntitySet="CountriesFilms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmsGenres_Films" Association="Self.FK_FilmsGenres_Films">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="FilmsGenres" EntitySet="FilmsGenres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilmsGenres_Genres" Association="Self.FK_FilmsGenres_Genres">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="FilmsGenres" EntitySet="FilmsGenres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Posters" Association="Self.FK_Orders_Posters">
+      <End Role="Posters" EntitySet="Posters" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Seats" Association="Self.FK_Orders_Seats">
+      <End Role="Seats" EntitySet="Seats" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posters_Films" Association="Self.FK_Posters_Films">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="Posters" EntitySet="Posters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posters_Halls" Association="Self.FK_Posters_Halls">
+      <End Role="Halls" EntitySet="Halls" />
+      <End Role="Posters" EntitySet="Posters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_Halls" Association="Self.FK_Seats_Halls">
+      <End Role="Halls" EntitySet="Halls" />
+      <End Role="Seats" EntitySet="Seats" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

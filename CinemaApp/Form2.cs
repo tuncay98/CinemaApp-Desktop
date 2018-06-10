@@ -17,7 +17,7 @@ namespace CinemaApp
         private List<Button> buttonlar = new List<Button>();
 
         Form1 form1 = new Form1();
-        private CinemaAppEntities dp = new CinemaAppEntities();
+        private CinemaAppEntities1 dp = new CinemaAppEntities1();
 
         public Form2()
         {

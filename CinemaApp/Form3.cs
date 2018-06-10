@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CinemaApp.Models;
+using ClosedXML.Excel;
 
 namespace CinemaApp
 {
     public partial class Form3 : Form
     {
 
-        private CinemaAppEntities db = new CinemaAppEntities();
+        private CinemaAppEntities1 db = new CinemaAppEntities1();
 
         public Form3()
         {
@@ -117,16 +118,18 @@ namespace CinemaApp
             }
             if(textBox1.Text != string.Empty)
             {
+                decimal price = Convert.ToDecimal(textBox1.Text);
                 if (ordering.Count > 0)
                 {
-                    var list = ordering.Where(w => w.Price == Convert.ToDecimal(textBox1.Text)).ToList();
+                    var list = ordering.Where(w => w.Price == price).ToList();
                     ordering.Clear();
                     ordering.AddRange(list);
 
                 }
                 else if (ordering.Count == 0)
                 {
-                    var list = db.Orders.Where(w => w.Price == Convert.ToDecimal(textBox1.Text)).ToList();
+                    
+                    var list = db.Orders.Where(w => w.Price == price).ToList();
                     ordering.AddRange(list);
                 }
             }
@@ -148,6 +151,66 @@ namespace CinemaApp
             dateTimePicker1.Value = DateTime.Now;
             textBox1.Text = "";
             Fill();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = @"C:\";
+            sfd.FileName = "";
+            sfd.Title = "Save as EXcel file";
+            sfd.DefaultExt = "xlsx";
+            sfd.Filter = "Excel (*.xlsx) | *.xlsx";
+
+            if(sfd.ShowDialog() == DialogResult.OK)
+            {
+                var wb = new XLWorkbook();
+                var ws = wb.AddWorksheet("Orders");
+
+                ws.Row(1).Height = 20;
+
+
+                Dictionary<string, string> list = new Dictionary<string, string>() {
+                {"A","Film Name" },
+                {"B", "Hall"},
+                {"C", "Date" },
+                {"D", "Time" },
+                {"E", "Buyed" },
+                {"F", "Price" },
+                {"G", "Row" },
+                {"H", "Seat" }
+            };
+                foreach (KeyValuePair<string, string> item in list)
+                {
+                    ws.Cell(item.Key + "1").Value = item.Value;
+                    ws.Column(item.Key).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                    ws.Column(item.Key).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+                    ws.Cell(item.Key + "1").Style.Font.SetBold();
+                    ws.Cell(item.Key + "1").Style.Font.SetFontSize(20);
+                    ws.Column(item.Key).AdjustToContents();
+                }
+                int begin = 0;
+                int excell = 2;
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    ws.Cell("A" + excell).Value = dataGridView1.Rows[begin].Cells[0].Value;
+                    ws.Cell("B" + excell).Value = dataGridView1.Rows[begin].Cells[1].Value;
+                    ws.Cell("C" + excell).Value = dataGridView1.Rows[begin].Cells[2].Value;
+                    ws.Cell("D" + excell).Value = dataGridView1.Rows[begin].Cells[3].Value;
+                    ws.Cell("E" + excell).Value = dataGridView1.Rows[begin].Cells[4].Value;
+                    ws.Cell("F" + excell).Value = dataGridView1.Rows[begin].Cells[5].Value;
+                    ws.Cell("G" + excell).Value = dataGridView1.Rows[begin].Cells[6].Value;
+                    ws.Cell("H" + excell).Value = dataGridView1.Rows[begin].Cells[7].Value;
+                    excell++;
+                }
+
+                wb.SaveAs(sfd.FileName.ToString());
+                wb.Save(true);
+                
+            }
+
         }
     }
 }
